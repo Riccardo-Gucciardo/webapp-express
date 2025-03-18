@@ -1,7 +1,8 @@
-const arrayPosts = require("../data/posts.js");
-require("../routers/postsRouter.js");
+// const arrayPosts = require("../data/posts.js");
+// require("../routers/postsRouter.js");
 
 const connection = require('../data/db.js')
+
 function index(req,res){
 
     // let filteredPosts = arrayPosts;
@@ -16,16 +17,17 @@ function index(req,res){
 
     // res.json(filteredPosts)
 
-    const sql = 'SELECT * FROM movies'
+    const sql = 'SELECT * FROM posts'
 
-    connection.query( sql,(err, results) => {
+    connection.query( sql, (err, results) => {
         if(err) return res.status(500).json({
-            error: 'database query error'
+            error: 'error'
         })
 
         res.json(results)
     })
-
+    // res.json('ciao')
+    
 
 }
 function show(req,res){
