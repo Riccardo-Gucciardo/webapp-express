@@ -30,109 +30,109 @@ function index(req,res){
     
 
 }
-function show(req,res){
+// function show(req,res){
 
-const id = parseInt(req.params.id);
+// const id = parseInt(req.params.id);
 
-const post =arrayPosts.find(arrayPosts=>arrayPosts.id === id);
+// const post =arrayPosts.find(arrayPosts=>arrayPosts.id === id);
 
-if(!post){ 
+// if(!post){ 
     
-    res.status(404)
+//     res.status(404)
 
-    return res.json( 
-        {
-            status : 404,
-            error : "not found",
-            message :"post not found"
-        }
-    );
-}
+//     return res.json( 
+//         {
+//             status : 404,
+//             error : "not found",
+//             message :"post not found"
+//         }
+//     );
+// }
 
-    res.json(post)
+//     res.json(post)
 
     
-}
-function store(req,res){
-    const newId= arrayPosts[arrayPosts.length - 1].id + 1;
+// }
+// function store(req,res){
+//     const newId= arrayPosts[arrayPosts.length - 1].id + 1;
 
-    const newPost ={
+//     const newPost ={
 
-        id : newId,
-        title :req.body.title,
-        content :req.body.content,
-        immage :req.body.immage,
-        tags : req.body.tags
+//         id : newId,
+//         title :req.body.title,
+//         content :req.body.content,
+//         immage :req.body.immage,
+//         tags : req.body.tags
 
-    }
+//     }
     
-    arrayPosts.push(newPost)
-    console.log(arrayPosts);
-    res.status(201).json(newPost)
-    
-    
-}
-function update(req,res){
-    
-    const id = parseInt(req.params.id);
-    const post = arrayPosts.find(arrayPosts => arrayPosts.id === id);
+//     arrayPosts.push(newPost)
+//     console.log(arrayPosts);
+//     res.status(201).json(newPost)
     
     
-    if (!post) {
+// }
+// function update(req,res){
+    
+//     const id = parseInt(req.params.id);
+//     const post = arrayPosts.find(arrayPosts => arrayPosts.id === id);
+    
+    
+//     if (!post) {
         
-        res.status(404)
+//         res.status(404)
         
-        return res.json(
-            {
-            status: 404,
-            error: "Not Found",
-            message: 'Post not found'
-            }
-        );
-    }
-        
-        
-post.title = req.body.title;
-post.content = req.body.content;
-post.image = req.body.immagine;
-post.tags = req.body.tags;
-
-
-console.log(arrayPosts)
-res.json(post);
-
-
-
-    
-}
-function patch(req,res){
-        
-    const id = parseInt(req.params.id);
-    const post = arrayPosts.find(arrayPosts => arrayPosts.id === id);
-    
-    
-    if (!post) {
-        
-        res.status(404)
-        
-        return res.json(
-            {
-            status: 404,
-            error: "Not Found",
-            message: 'Post not found'
-            }
-        );
-    }
+//         return res.json(
+//             {
+//             status: 404,
+//             error: "Not Found",
+//             message: 'Post not found'
+//             }
+//         );
+//     }
         
         
-post.title = req.body.title;
-post.content = req.body.content;
-post.image = req.body.immagine;
-post.tags = req.body.tags;
+// post.title = req.body.title;
+// post.content = req.body.content;
+// post.image = req.body.immagine;
+// post.tags = req.body.tags;
 
 
-console.log(arrayPosts)
-res.json(post);
+// console.log(arrayPosts)
+// res.json(post);
+
+
+
+    
+// }
+// function patch(req,res){
+        
+//     const id = parseInt(req.params.id);
+//     const post = arrayPosts.find(arrayPosts => arrayPosts.id === id);
+    
+    
+//     if (!post) {
+        
+//         res.status(404)
+        
+//         return res.json(
+//             {
+//             status: 404,
+//             error: "Not Found",
+//             message: 'Post not found'
+//             }
+//         );
+//     }
+        
+        
+// post.title = req.body.title;
+// post.content = req.body.content;
+// post.image = req.body.immagine;
+// post.tags = req.body.tags;
+
+
+// console.log(arrayPosts)
+// res.json(post);
 
 
 
@@ -140,33 +140,33 @@ res.json(post);
 
 
     
-}
-function destroy(req,res){
-const id = parseInt(req.params.id);
+// }
+// function destroy(req,res){
+// const id = parseInt(req.params.id);
 
-const post =arrayPosts.find(arrayPosts=>arrayPosts.id === id);
+// const post =arrayPosts.find(arrayPosts=>arrayPosts.id === id);
 
-if(!post){
+// if(!post){
     
-    res.status(404)
+//     res.status(404)
 
-    return res.json(
-        {
-            status : 404,
-            error : "not found",
-            message :"post not found"
-        }
-    );
-}
-arrayPosts.splice(arrayPosts.indexOf(post), 1);
-res.sendStatus(204)
+//     return res.json(
+//         {
+//             status : 404,
+//             error : "not found",
+//             message :"post not found"
+//         }
+//     );
+// }
+// arrayPosts.splice(arrayPosts.indexOf(post), 1);
+// res.sendStatus(204)
     
 
 
     
-}
+// }
 
 
 
 
-module.exports = {index,show,store,update,patch,destroy}
+module.exports = {index}
