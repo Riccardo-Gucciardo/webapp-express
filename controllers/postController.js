@@ -24,7 +24,14 @@ function index(req,res){
             error: 'error'
         })
 
-        res.json(results)
+        const movies = results.map(movie =>{
+            return{
+                ...movie,
+                image : req.immagePath + movie.image
+            }
+                
+        })
+        res.json(movies)
     })
 
     
