@@ -1,76 +1,45 @@
 const arrayPosts = require("../data/posts.js");
 require("../routers/postsRouter.js");
 
-const connection = require('../data/db.js')
-
 function index(req,res){
 
-    // let filteredPosts = arrayPosts;
+    let filteredPosts = arrayPosts;
 
 
-    // if(req.query.tags) {
-    //     filteredPosts = arrayPosts.filter(arrayPosts=>{
-    //         return arrayPosts.tags.includes(req.query.tags)
-    //     })
-    // }
-
-
-    // res.json(filteredPosts)
-
-
-    const sql = 'SELECT * FROM movies'
-
-    connection.query( sql,(err, results) => {
-        if(err) return res.status(500).json({
-            error: 'database query error'
+    if(req.query.tags) {
+        filteredPosts = arrayPosts.filter(arrayPosts=>{
+            return arrayPosts.tags.includes(req.query.tags)
         })
+    }
 
-        res.json(results)
-    })
+
+    res.json(filteredPosts)
+
+
+
 }
 function show(req,res){
 
-// const id = parseInt(req.params.id);
+const id = parseInt(req.params.id);
 
-// const post =arrayPosts.find(arrayPosts=>arrayPosts.id === id);
+const post =arrayPosts.find(arrayPosts=>arrayPosts.id === id);
 
-// if(!post){ 
+if(!post){ 
     
-//     res.status(404)
+    res.status(404)
 
-//     return res.json( 
-//         {
-//             status : 404,
-//             error : "not found",
-//             message :"post not found"
-//         }
-//     );
-// }
+    return res.json( 
+        {
+            status : 404,
+            error : "not found",
+            message :"post not found"
+        }
+    );
+}
 
-//     res.json(post)
+    res.json(post)
 
-// mySQL
     
-const {id} = req.params
-
-const sql = 'SELECT * FROM movies WHERE id = ?';
-
-    connection.query(sql, [id], (err, results) =>{
-            if (err) return res.status( 500 ).json({
-            error: 'Database error'
-            })
-
-            if ( results.length === 0 ) return res.status(404).json({
-                status: 404,
-                error: "Not Found",
-                message: "film non trovato"
-            }) 
-
-
-        res.json(results[0])
-    })
-
-
 }
 function store(req,res){
     const newId= arrayPosts[arrayPosts.length - 1].id + 1;
@@ -161,40 +130,25 @@ res.json(post);
     
 }
 function destroy(req,res){
-// const id = parseInt(req.params.id);
+const id = parseInt(req.params.id);
 
-// const post =arrayPosts.find(arrayPosts=>arrayPosts.id === id);
+const post =arrayPosts.find(arrayPosts=>arrayPosts.id === id);
 
-// if(!post){
+if(!post){
     
-//     res.status(404)
+    res.status(404)
 
-//     return res.json(
-//         {
-//             status : 404,
-//             error : "not found",
-//             message :"post not found"
-//         }
-//     );
-// }
-// arrayPosts.splice(arrayPosts.indexOf(post), 1);
-// res.sendStatus(204)
-    
-
-const {id} = req.params;
-
-const sql = 'DELETE FROM movies WHERE id = ?'
-
-    connection.query( sql, [id], (err) => {
-    res.status(500).json({
-    error: 'Database query error'
-})
-
+    return res.json(
+        {
+            status : 404,
+            error : "not found",
+            message :"post not found"
+        }
+    );
+}
+arrayPosts.splice(arrayPosts.indexOf(post), 1);
 res.sendStatus(204)
-
-})
     
-
 
 
     
