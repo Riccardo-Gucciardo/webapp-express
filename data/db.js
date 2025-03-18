@@ -1,11 +1,11 @@
-import mysql from "mysql2"
+const mysql2 = require('mysql2')
 
 
-export const connection = mysql.createConnection({
+const connection = mysql2.createConnection({
     host: "localhost",
     user: "root",
     password: "root",
-    database: "posts_db"
+    database: "movies_db"
 })
 
 connection.connect( (err) => {
@@ -14,3 +14,4 @@ connection.connect( (err) => {
     console.log( "Connessione al DB avvenuta con successo")
 })
 
+module.exports = connection; 

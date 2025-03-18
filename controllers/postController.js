@@ -17,7 +17,7 @@ function index(req,res){
 
     // res.json(filteredPosts)
 
-    const sql = 'SELECT * FROM posts'
+    const sql = 'SELECT * FROM movies'
 
     connection.query( sql, (err, results) => {
         if(err) return res.status(500).json({
