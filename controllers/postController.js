@@ -26,31 +26,58 @@ function index(req,res){
 
         res.json(results)
     })
-    // res.json('ciao')
+
     
 
 }
 function show(req,res){
 
-const id = parseInt(req.params.id);
+// const id = parseInt(req.params.id);
 
-const post =arrayPosts.find(arrayPosts=>arrayPosts.id === id);
+// const post =arrayPosts.find(arrayPosts=>arrayPosts.id === id);
 
-if(!post){ 
+// if(!post){ 
     
-    res.status(404)
+//     res.status(404)
 
-    return res.json( 
-        {
-            status : 404,
-            error : "not found",
-            message :"post not found"
-        }
-    );
-}
+//     return res.json( 
+//         {
+//             status : 404,
+//             error : "not found",
+//             message :"post not found"
+//         }
+//     );
+// }
 
-    res.json(post)
+//     res.json(post)
 
+const {id} = req.params;
+
+const movieSql = 'SELECT * FROM movies WHERE id= ?'
+
+const reviewsSql = 'SELECT * FROM reviews WHERE movie_id = ?'
+
+connection.query( movieSql, [id], (err, results) =>{
+
+    if(err) return res.status(500).json({
+    error: 'Errore lato server INDEX function'
+    })
+
+    if( results.length === 0 ) return res.status(404).json({
+    error: 'movie not found'
+    })
+
+    const movie = results[0]
+
+    connection.query(reviewsSql,[id],(err,reviewsResults)=>{
+        if(err) return res.status(500).json({
+            error: 'Errore lato server INDEX function'
+            })
+
+        movie.reviews = reviewsResults
+        res.json(movie)
+    })
+})
     
 }
 function store(req,res){
@@ -142,26 +169,42 @@ res.json(post);
     
 }
 function destroy(req,res){
-const id = parseInt(req.params.id);
+// const id = parseInt(req.params.id);
 
-const post =arrayPosts.find(arrayPosts=>arrayPosts.id === id);
+// const post =arrayPosts.find(arrayPosts=>arrayPosts.id === id);
 
-if(!post){
+// if(!post){
     
-    res.status(404)
+//     res.status(404)
 
-    return res.json(
-        {
-            status : 404,
-            error : "not found",
-            message :"post not found"
-        }
-    );
-}
-arrayPosts.splice(arrayPosts.indexOf(post), 1);
-res.sendStatus(204)
+//     return res.json(
+//         {
+//             status : 404,
+//             error : "not found",
+//             message :"post not found"
+//         }
+//     );
+// }
+// arrayPosts.splice(arrayPosts.indexOf(post), 1);
+// res.sendStatus(204)
     
 
+const {id} = req.params;
+
+const sql = 'DELETE FROM movies WHERE id = ?'
+
+connection.query( sql, [id], (err) => {
+
+    if(err) return res.status(500).json({
+    error: 'Errore lato server DESTROY function'
+    })
+
+    if( results.length === 0 ) return res.status(404).json({
+    error: 'movie not found'
+    })
+
+    res.sendStatus( 204 )
+})
 
     
 }
