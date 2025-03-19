@@ -1,5 +1,7 @@
-function setimmagePath(req,res,next){
-    req.imagepath =  `${req.protocol}://${req.get('host')}/img/`
-    next()
+function setImmagePath(req,res,next){
+    req.imagePath =  `${req.protocol}://${req.get('host')}/img/cartella_img/`
+    console.log(req.imagePath);
+    
+    next();
 }
-module.exports = setimmagePath; 
+module.exports = setImmagePath; 
