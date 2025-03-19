@@ -108,33 +108,47 @@ function store(req,res){
 }
 function update(req,res){
     
-    const id = parseInt(req.params.id);
-    const post = arrayPosts.find(arrayPosts => arrayPosts.id === id);
+    // const id = parseInt(req.params.id);
+    // const post = arrayPosts.find(arrayPosts => arrayPosts.id === id);
     
     
-    if (!post) {
+    // if (!post) {
         
-        res.status(404)
+    //     res.status(404)
         
-        return res.json(
-            {
-            status: 404,
-            error: "Not Found",
-            message: 'Post not found'
-            }
-        );
-    }
+    //     return res.json(
+    //         {
+    //         status: 404,
+    //         error: "Not Found",
+    //         message: 'Post not found'
+    //         }
+    //     );
+    // }
         
         
-post.title = req.body.title;
-post.content = req.body.content;
-post.image = req.body.immagine;
-post.tags = req.body.tags;
+// post.title = req.body.title;
+// post.content = req.body.content;
+// post.image = req.body.immagine;
+// post.tags = req.body.tags;
 
 
-console.log(arrayPosts)
-res.json(post);
+// console.log(arrayPosts)
+// res.json(post);
 
+
+
+const { id } = req.params
+const { image } = req.body
+
+const sql ='UPDATE movies SET image = ? WHERE id = ?;'
+
+connection.query(sql,[image,id],err => {
+    if (err) return res.status(500).json({
+        err: "error"
+    })
+
+    res.json({message:" update successifully"})
+})
 
 
     
