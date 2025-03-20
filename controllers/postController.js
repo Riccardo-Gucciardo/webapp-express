@@ -94,22 +94,40 @@ connection.query( movieSql, [id], (err, results) =>{
     
 }
 function store(req,res){
-    const newId= arrayPosts[arrayPosts.length - 1].id + 1;
+    // const newId= arrayPosts[arrayPosts.length - 1].id + 1;
 
-    const newPost ={
+    // const newPost ={
 
-        id : newId,
-        title :req.body.title,
-        content :req.body.content,
-        immage :req.body.immage,
-        tags : req.body.tags
+    //     id : newId,
+    //     title :req.body.title,
+    //     content :req.body.content,
+    //     immage :req.body.immage,
+    //     tags : req.body.tags
 
-    }
+    // }
     
-    arrayPosts.push(newPost)
-    console.log(arrayPosts);
-    res.status(201).json(newPost)
+    // arrayPosts.push(newPost)
+    // console.log(arrayPosts);
+    // res.status(201).json(newPost)
+
+
+    const {title,director,abstract} = req.body
     
+    const imageName = `${req.file.filename}`
+
+    const sql = "INSERT INTO movies (title,director,image,abstract) VALUES (?,?,?,?)"
+
+    connection.query(sql, [title,director,imageName,abstract], (err,results) => {
+        if(err) return res.status(500).json({
+            error: 'database error store'
+        })
+
+        res.status(201).json({
+            status: "success",
+            message: "film creato con successo",
+            id: results.insertId
+        })
+    })
     
 }
 function update(req,res){
@@ -234,7 +252,7 @@ connection.query( sql, [id], (err) => {
 })
 
     
-}
+} 
 function storeReview(req,res){
     const {id} = req.params;
 
