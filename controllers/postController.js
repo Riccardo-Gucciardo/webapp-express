@@ -88,7 +88,7 @@ connection.query( movieSql, [id], (err, results) =>{
             image: req.imagePath + movie.image
         })
 
-        res.json(movie)   
+  
     })
 })
     
