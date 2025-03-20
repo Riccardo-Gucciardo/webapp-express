@@ -229,8 +229,26 @@ connection.query( sql, [id], (err) => {
 
     
 }
+function storeReview(req,res){
+    const {id} = req.params;
+
+    const {text,name,vote} = req.body
+
+    const sql = 'INSERT INTO reviews (text,name,vote,movie_id) VALUES (?,?,?,?)'
+
+    connection.query(sql,[text,name,vote,id], (err,results)=>{
+        if(err) return res.status(500).json({
+            error: 'database error storeReview' 
+        })
+
+        res.status(201)
+        res.json({
+            message: 'reviews added',
+            id: results.insertId
+        })
+    })
+}
 
 
 
-
-module.exports = {index,show,store,update,patch,destroy}
+module.exports = {index,show,store,update,patch,destroy,storeReview}
